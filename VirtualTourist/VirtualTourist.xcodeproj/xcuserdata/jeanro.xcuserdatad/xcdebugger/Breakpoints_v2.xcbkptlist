@@ -19,5 +19,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VirtualTourist/Controller/MapViewController.swift"
+            timestampString = "537074335.4423881"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "loadPhotosFromFlickr(_:_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VirtualTourist.MapViewController.(loadPhotosFromFlickr in _F34E168D9526021690A8F81BFB35C320)(Swift.Int, VirtualTourist.Location) -&gt; ()"
+                  moduleName = "VirtualTourist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeanro/iosnano/persistence/VirtualTourist/VirtualTourist/Controller/MapViewController.swift"
+                  timestampString = "537074335.794698"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "22">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;Swift.String&gt;&gt;, Swift.Optional&lt;Swift.Int&gt;, Swift.Optional&lt;__ObjC.NSError&gt;) -&gt; () in VirtualTourist.MapViewController.(loadPhotosFromFlickr in _F34E168D9526021690A8F81BFB35C320)(Swift.Int, VirtualTourist.Location) -&gt; ()"
+                  moduleName = "VirtualTourist"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jeanro/iosnano/persistence/VirtualTourist/VirtualTourist/Controller/MapViewController.swift"
+                  timestampString = "537074335.7972749"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "106"
+                  endingLineNumber = "106"
+                  offsetFromSymbolStart = "49">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VirtualTourist/Controller/MapViewController.swift"
+            timestampString = "537074907.887652"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "loadPhotosFromFlickr(_:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

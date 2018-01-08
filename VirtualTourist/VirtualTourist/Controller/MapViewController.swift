@@ -29,6 +29,8 @@ class MapViewController: UIViewController {
     let MAP_ANNOTATION_REUSE_ID = "pin"
     var idEditing = false
     
+    var annotation: MKPointAnnotation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
@@ -40,21 +42,20 @@ class MapViewController: UIViewController {
         navigationItem.title = APP_TITLE
     }
     @IBAction func onLongPressed(_ sender: UILongPressGestureRecognizer) {
-        let pressedPoint = sender.location(in: mapView)
-        let pressedCoordinate = mapView.convert(pressedPoint, toCoordinateFrom: mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = pressedCoordinate
-        var isFound = false
-        for existingAnnotation in mapView.annotations {
-            if existingAnnotation.coordinate.latitude == pressedCoordinate.latitude && existingAnnotation.coordinate.longitude == pressedCoordinate.longitude {
-                isFound = true
-                break
-            }
-        }
-        if !isFound {
-            mapView.addAnnotation(annotation)
-            let newLoc = Location(longitude: pressedCoordinate.longitude, latitude: pressedCoordinate.latitude, context: (coreDataStack?.context)!)
-            loadPhotosFromFlickr(1, newLoc)
+        switch sender.state {
+        case .began:
+            createPin(sender)
+        case .changed:
+            changePinLocation(sender)
+        case .cancelled:
+            annotation = nil
+        case .ended:
+            dropPin(sender)
+            annotation = nil
+        case .failed:
+            annotation = nil
+        case .possible:
+            annotation = nil
         }
     }
     
@@ -115,6 +116,44 @@ class MapViewController: UIViewController {
                     location.addToImages(image)
                 }
             }
+            self.coreDataStack?.save()
+        }
+    }
+    
+    private func createPin(_ sender: UILongPressGestureRecognizer) {
+        let pressedPoint = sender.location(in: mapView)
+        let pressedCoordinate = mapView.convert(pressedPoint, toCoordinateFrom: mapView)
+        annotation = MKPointAnnotation()
+        annotation?.coordinate = pressedCoordinate
+    }
+    
+    private func changePinLocation(_ sender: UILongPressGestureRecognizer) {
+        guard let annotation = annotation else {
+            return
+        }
+        let pressedPoint = sender.location(in: mapView)
+        let pressedCoordinate = mapView.convert(pressedPoint, toCoordinateFrom: mapView)
+        annotation.coordinate = pressedCoordinate
+    }
+    
+    private func dropPin(_ sender: UILongPressGestureRecognizer) {
+        guard let annotation = annotation else {
+            return
+        }
+        let pressedPoint = sender.location(in: mapView)
+        let pressedCoordinate = mapView.convert(pressedPoint, toCoordinateFrom: mapView)
+        var isFound = false
+        for existingAnnotation in mapView.annotations {
+            if existingAnnotation.coordinate.latitude == pressedCoordinate.latitude && existingAnnotation.coordinate.longitude == pressedCoordinate.longitude {
+                isFound = true
+                break
+            }
+        }
+        if !isFound {
+            mapView.addAnnotation(annotation)
+            let newLoc = Location(longitude: pressedCoordinate.longitude, latitude: pressedCoordinate.latitude, context: (coreDataStack?.context)!)
+            coreDataStack?.save()
+            loadPhotosFromFlickr(1, newLoc)
         }
     }
 }
@@ -154,6 +193,7 @@ extension MapViewController: MKMapViewDelegate {
                 vc.totalPageNumber = location.value(forKey: "totalFlickrPages") as! Int
                 navigationItem.title = OK_TITLE
                 navigationController?.pushViewController(vc, animated: true)
+                mapView.deselectAnnotation(view.annotation, animated: false)
             }
             
         }
@@ -172,15 +212,3 @@ extension MapViewController: MKMapViewDelegate {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
